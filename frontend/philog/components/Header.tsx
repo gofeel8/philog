@@ -2,18 +2,17 @@ import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { MediaSize, Color, HeaderHeight } from "../utils/constant";
+import { useState } from "react";
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${Color.gray};
   position: absolute;
   top: 0;
   width: 100%;
   height: ${HeaderHeight}px;
   padding: 0 12vw;
-  min-width: 400px;
 `;
 
 const Logo = styled.p`
@@ -22,9 +21,11 @@ const Logo = styled.p`
   }
 `;
 
-const NavList = styled.ul`
+const NavList = styled.ul<any>`
   @media only screen and (max-width: ${MediaSize}px) {
-    /* display: none; */
+    display: ${({ toggle }) => {
+      return toggle ? "black" : "none";
+    }};
     position: absolute;
     top: ${HeaderHeight}px;
     left: 0;
@@ -61,17 +62,18 @@ const Hamburger = styled.button`
 `;
 
 export default function NavBar() {
+  const [showNav, setShowNav] = useState(false);
   return (
     <>
       <Header>
         <Logo>Philog</Logo>
-        <NavList>
+        <NavList toggle={showNav}>
           <NavItem>Tech</NavItem>
           <NavItem>Photo</NavItem>
           <NavItem>Diet</NavItem>
           <NavItem>Login</NavItem>
         </NavList>
-        <Hamburger>
+        <Hamburger onClick={() => setShowNav((prev) => !prev)}>
           <FontAwesomeIcon icon={faBars} />
         </Hamburger>
       </Header>
