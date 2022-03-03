@@ -13,6 +13,7 @@ const Header = styled.header`
   width: 100%;
   height: ${HeaderHeight}px;
   padding: 0 12vw;
+  font-size: 1.2rem;
 `;
 
 const Logo = styled.p`
@@ -41,13 +42,17 @@ const NavList = styled.ul<any>`
 const NavItem = styled.li`
   float: left;
   padding: 10px;
+  margin: 5px;
   text-align: center;
   cursor: pointer;
+  border-radius: 10px;
   &:hover {
     background-color: ${Color.lightGray};
   }
   @media only screen and (max-width: ${MediaSize}px) {
     float: initial;
+    margin: 0;
+    border-radius: 0;
     &:nth-last-child(1) {
       border-radius: 0 0 20px 20px;
     }
