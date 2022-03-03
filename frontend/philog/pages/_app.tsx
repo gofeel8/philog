@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  ol, ul { list-style:none; };
 `;
 
 export default MyApp;
