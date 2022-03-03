@@ -4,6 +4,27 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { MediaSize, Color, HeaderHeight } from "../utils/constant";
 import { useState } from "react";
 
+export default function NavBar() {
+  const [showNav, setShowNav] = useState(false);
+  return (
+    <>
+      <Header>
+        <Logo>Philog</Logo>
+        <NavList toggle={showNav}>
+          <NavItem>Intro</NavItem>
+          <NavItem>Tech</NavItem>
+          <NavItem>Photo</NavItem>
+          <NavItem>Diet</NavItem>
+          <NavItem>Login</NavItem>
+        </NavList>
+        <Hamburger onClick={() => setShowNav((prev) => !prev)}>
+          <FontAwesomeIcon icon={faBars} />
+        </Hamburger>
+      </Header>
+    </>
+  );
+}
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -45,14 +66,23 @@ const NavItem = styled.li`
   margin: 5px;
   text-align: center;
   cursor: pointer;
-  border-radius: 10px;
   &:hover {
+    border-radius: 10px;
     background-color: ${Color.lightGray};
   }
+  &:nth-child(1) {
+    border-bottom: 1px solid ${Color.gray};
+  }
+
   @media only screen and (max-width: ${MediaSize}px) {
     float: initial;
     margin: 0;
-    border-radius: 0;
+    &:hover {
+      border-radius: 0px;
+    }
+    &:nth-child(1) {
+      border-bottom: none;
+    }
     &:nth-last-child(1) {
       border-radius: 0 0 20px 20px;
     }
@@ -65,23 +95,3 @@ const Hamburger = styled.button`
     display: block;
   }
 `;
-
-export default function NavBar() {
-  const [showNav, setShowNav] = useState(false);
-  return (
-    <>
-      <Header>
-        <Logo>Philog</Logo>
-        <NavList toggle={showNav}>
-          <NavItem>Tech</NavItem>
-          <NavItem>Photo</NavItem>
-          <NavItem>Diet</NavItem>
-          <NavItem>Login</NavItem>
-        </NavList>
-        <Hamburger onClick={() => setShowNav((prev) => !prev)}>
-          <FontAwesomeIcon icon={faBars} />
-        </Hamburger>
-      </Header>
-    </>
-  );
-}

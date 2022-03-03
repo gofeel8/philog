@@ -1,4 +1,4 @@
-export const MediaSize = 520;
+export const MediaSize = 600;
 
 export const HeaderHeight = 60;
 
