@@ -43,11 +43,9 @@ const Logo = styled.p`
   }
 `;
 
-const NavList = styled.ul<any>`
+const NavList = styled.ul<{ toggle: boolean }>`
   @media only screen and (max-width: ${MediaSize}px) {
-    display: ${({ toggle }) => {
-      return toggle ? "black" : "none";
-    }};
+    display: ${({ toggle }) => (toggle ? "black" : "none")};
     position: absolute;
     top: ${HeaderHeight}px;
     left: 0;
