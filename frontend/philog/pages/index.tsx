@@ -5,7 +5,6 @@ const Home: NextPage = () => {
   return (
     <div>
       <Seo title="Philog" />
-      메인페이지
     </div>
   );
 };

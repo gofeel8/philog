@@ -1,10 +1,13 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { MediaSize, Color, HeaderHeight } from "../utils/constant";
-import { useState } from "react";
-
-export default function NavBar() {
+import { Dispatch, SetStateAction, useState } from "react";
+interface HeaderProps {
+  setDarkMode: Dispatch<SetStateAction<boolean>>;
+  isDarkMode: boolean;
+}
+export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
   const [showNav, setShowNav] = useState(false);
   return (
     <>
@@ -17,13 +20,22 @@ export default function NavBar() {
           <NavItem>Diet</NavItem>
           <NavItem>Login</NavItem>
         </NavList>
-        <Hamburger onClick={() => setShowNav((prev) => !prev)}>
-          <FontAwesomeIcon icon={faBars} />
-        </Hamburger>
+        <BtnContainer>
+          <ThemeBtn onClick={() => setDarkMode((prev) => !prev)}>
+            <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
+          </ThemeBtn>
+          <Button onClick={() => setShowNav((prev) => !prev)}>
+            <FontAwesomeIcon icon={faBars} />
+          </Button>
+        </BtnContainer>
       </Header>
     </>
   );
 }
+
+const BtnContainer = styled.div`
+  display: flex;
+`;
 
 const Header = styled.header`
   display: flex;
@@ -35,6 +47,7 @@ const Header = styled.header`
   height: ${HeaderHeight}px;
   padding: 0 12vw;
   font-size: 1.2rem;
+  color: ${(props) => props.theme.secondary};
 `;
 
 const Logo = styled.p`
@@ -44,8 +57,12 @@ const Logo = styled.p`
 `;
 
 const NavList = styled.ul<{ toggle: boolean }>`
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   @media only screen and (max-width: ${MediaSize}px) {
-    display: ${({ toggle }) => (toggle ? "black" : "none")};
+    display: ${({ toggle }) => (toggle ? "block" : "none")};
     position: absolute;
     top: ${HeaderHeight}px;
     left: 0;
@@ -55,6 +72,8 @@ const NavList = styled.ul<{ toggle: boolean }>`
     border-radius: 0 0 20px 20px;
     width: 100%;
     padding: 0;
+    background-color: ${(props) => props.theme.primary};
+    border-bottom: 1px solid ${(props) => props.theme.secondary};
   }
 `;
 
@@ -87,9 +106,32 @@ const NavItem = styled.li`
   }
 `;
 
-const Hamburger = styled.button`
+const Button = styled.button`
   display: none;
+  font-size: 30px;
+  width: 40px;
+  color: ${(props) => props.theme.secondary};
+  border-radius: 50%;
+  border: none;
+  margin: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: transparent;
   @media only screen and (max-width: ${MediaSize}px) {
     display: block;
+  }
+`;
+
+const ThemeBtn = styled(Button)`
+  @media only screen and (min-width: ${MediaSize}px) {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    &:hover {
+      border: 1px solid ${(props) => props.theme.secondary}; 
+      box-shadow: 1px 1px 4px ${(props) => props.theme.secondary};
   }
 `;
