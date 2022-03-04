@@ -1,10 +1,10 @@
 import Seo from "../components/Seo";
 
-export default function Home() {
+export default function photo() {
   return (
     <div>
       <Seo title="Philog" />
-      인트로
+      사진첩
     </div>
   );
 }

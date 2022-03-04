@@ -22,7 +22,6 @@ export default function Layout({
   return (
     <>
       <Header setDarkMode={setDarkMode} isDarkMode={isDarkMode} />
-
       <Content>
         <SideBar />
         {children}

@@ -1,10 +1,10 @@
 import Seo from "../components/Seo";
 
-export default function Home() {
+export default function login() {
   return (
     <div>
       <Seo title="Philog" />
-      인트로
+      로그인
     </div>
   );
 }

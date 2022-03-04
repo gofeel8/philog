@@ -2,23 +2,49 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { MediaSize, Color, HeaderHeight } from "../utils/constant";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 interface HeaderProps {
   setDarkMode: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
 }
 export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
   const [showNav, setShowNav] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    console.log(router);
+  });
   return (
     <>
       <Header>
         <Logo>Philog</Logo>
         <NavList toggle={showNav}>
-          <NavItem>Intro</NavItem>
-          <NavItem>Tech</NavItem>
-          <NavItem>Photo</NavItem>
-          <NavItem>Diet</NavItem>
-          <NavItem>Login</NavItem>
+          <Link href="/">
+            <NavItem>
+              <a>Intro</a>
+            </NavItem>
+          </Link>
+          <Link href="/tech" passHref={true}>
+            <NavItem>
+              <a>Tech</a>
+            </NavItem>
+          </Link>
+          <Link href="/photo" passHref={true}>
+            <NavItem>
+              <a>Photo</a>
+            </NavItem>
+          </Link>
+          <Link href="/diet" passHref={true}>
+            <NavItem>
+              <a>Diet</a>
+            </NavItem>
+          </Link>
+          <Link href="/login" passHref={true}>
+            <NavItem>
+              <a>Login</a>
+            </NavItem>
+          </Link>
         </NavList>
         <BtnContainer>
           <ThemeBtn onClick={() => setDarkMode((prev) => !prev)}>
