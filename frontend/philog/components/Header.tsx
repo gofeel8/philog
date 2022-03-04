@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
   const [showNav, setShowNav] = useState(false);
-  const [navIdx, setNavIdx] = useState(0);
+  const [navIdx, setNavIdx] = useState(-1);
 
   return (
     <>
@@ -18,9 +18,9 @@ export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
         <Logo>Philog</Logo>
         <NavContainer>
           <NavList toggle={showNav}>
-            <Link href="/" passHref={true}>
+            <Link href="/profile" passHref={true}>
               <NavItem onClick={() => setNavIdx(0)}>
-                <a>Intro</a>
+                <a>Profile</a>
               </NavItem>
             </Link>
             <Link href="/tech" passHref={true}>
@@ -91,7 +91,9 @@ const NavContainer = styled.div`
 
 const Indicator = styled.div<{ navIdx: number }>`
   width: 80px;
-  margin-right: ${(props) => `calc(320px - 80px * ${props.navIdx});`};
+  display: ${({ navIdx }) => (navIdx >= 0 ? "block" : "none")};
+  margin-right: ${({ navIdx }) =>
+    navIdx >= 0 && `calc(320px - 80px * ${navIdx});`};
   border: 1px solid ${Color.lightGray};
   transition: all ease 0.5s 0s;
   @media only screen and (max-width: ${MediaSize}px) {
