@@ -4,48 +4,48 @@ import { faBars, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { MediaSize, Color, HeaderHeight } from "../utils/constant";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 interface HeaderProps {
   setDarkMode: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
 }
 export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
   const [showNav, setShowNav] = useState(false);
-  const router = useRouter();
-  useEffect(() => {
-    console.log(router);
-  });
+  const [navIdx, setNavIdx] = useState(0);
+
   return (
     <>
       <Header>
         <Logo>Philog</Logo>
-        <NavList toggle={showNav}>
-          <Link href="/">
-            <NavItem>
-              <a>Intro</a>
-            </NavItem>
-          </Link>
-          <Link href="/tech" passHref={true}>
-            <NavItem>
-              <a>Tech</a>
-            </NavItem>
-          </Link>
-          <Link href="/photo" passHref={true}>
-            <NavItem>
-              <a>Photo</a>
-            </NavItem>
-          </Link>
-          <Link href="/diet" passHref={true}>
-            <NavItem>
-              <a>Diet</a>
-            </NavItem>
-          </Link>
-          <Link href="/login" passHref={true}>
-            <NavItem>
-              <a>Login</a>
-            </NavItem>
-          </Link>
-        </NavList>
+        <NavContainer>
+          <NavList toggle={showNav}>
+            <Link href="/" passHref={true}>
+              <NavItem onClick={() => setNavIdx(0)}>
+                <a>Intro</a>
+              </NavItem>
+            </Link>
+            <Link href="/tech" passHref={true}>
+              <NavItem onClick={() => setNavIdx(1)}>
+                <a>Tech</a>
+              </NavItem>
+            </Link>
+            <Link href="/photo" passHref={true}>
+              <NavItem onClick={() => setNavIdx(2)}>
+                <a>Photo</a>
+              </NavItem>
+            </Link>
+            <Link href="/diet" passHref={true}>
+              <NavItem onClick={() => setNavIdx(3)}>
+                <a>Diet</a>
+              </NavItem>
+            </Link>
+            <Link href="/login" passHref={true}>
+              <NavItem onClick={() => setNavIdx(4)}>
+                <a>Login</a>
+              </NavItem>
+            </Link>
+          </NavList>
+          <Indicator navIdx={navIdx} />
+        </NavContainer>
         <BtnContainer>
           <ThemeBtn onClick={() => setDarkMode((prev) => !prev)}>
             <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
@@ -82,11 +82,30 @@ const Logo = styled.p`
   }
 `;
 
-const NavList = styled.ul<{ toggle: boolean }>`
+const NavContainer = styled.div`
   flex-grow: 1;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
   align-items: flex-end;
+`;
+
+const Indicator = styled.div<{ navIdx: number }>`
+  width: 80px;
+  margin-right: ${(props) => `calc(320px - 80px * ${props.navIdx});`};
+  border: 1px solid ${Color.lightGray};
+  transition: all ease 0.5s 0s;
+  @media only screen and (max-width: ${MediaSize}px) {
+    display: none;
+  }
+`;
+
+const NavList = styled.ul<{ toggle: boolean }>`
+  justify-content: space-between;
+  display: flex;
+  align-items: flex-end;
+  width: 400px;
+  margin: 0;
+  padding: 0;
   @media only screen and (max-width: ${MediaSize}px) {
     display: ${({ toggle }) => (toggle ? "block" : "none")};
     position: absolute;
@@ -106,20 +125,14 @@ const NavList = styled.ul<{ toggle: boolean }>`
 const NavItem = styled.li`
   float: left;
   padding: 10px;
-  margin: 5px;
   text-align: center;
+  width: 80px;
   cursor: pointer;
-  &:hover {
-    border-radius: 10px;
-    background-color: ${Color.lightGray};
-  }
-  &:nth-child(1) {
-    border-bottom: 1px solid ${Color.gray};
-  }
 
   @media only screen and (max-width: ${MediaSize}px) {
     float: initial;
     margin: 0;
+    width: 100%;
     &:hover {
       border-radius: 0px;
     }
