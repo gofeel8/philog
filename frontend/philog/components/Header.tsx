@@ -4,35 +4,16 @@ import { faBars, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { MediaSize, Color, HeaderHeight } from "../utils/constant";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import NavTab from "./NavTab";
+import { useNavIdx } from "../hooks/useNavIdx";
 interface HeaderProps {
   setDarkMode: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
 }
 
-interface PathObj {
-  [index: string]: number;
-}
-
 export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
   const [showNav, setShowNav] = useState(false);
-  const [navIdx, setNavIdx] = useState(-1);
-  const router = useRouter();
-
-  useEffect(() => {
-    let path: string = router.pathname.split("/")[1];
-    const pathObj: PathObj = {
-      profile: 0,
-      tech: 1,
-      photo: 2,
-      diet: 3,
-      login: 4,
-    };
-    let idx: number = -1;
-    if (pathObj.hasOwnProperty(path)) idx = pathObj[path];
-    if (idx !== navIdx) setNavIdx(idx);
-  }, [router.pathname, navIdx]);
+  const navIdx = useNavIdx();
 
   return (
     <>
