@@ -5,6 +5,7 @@ import { MediaSize, Color, HeaderHeight } from "../utils/constant";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import NavTab from "./NavTab";
 interface HeaderProps {
   setDarkMode: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
@@ -41,31 +42,11 @@ export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
         </Link>
         <NavContainer>
           <NavList toggle={showNav}>
-            <Link href="/profile" passHref={true}>
-              <NavItem>
-                <a>Profile</a>
-              </NavItem>
-            </Link>
-            <Link href="/tech" passHref={true}>
-              <NavItem>
-                <a>Tech</a>
-              </NavItem>
-            </Link>
-            <Link href="/photo" passHref={true}>
-              <NavItem>
-                <a>Photo</a>
-              </NavItem>
-            </Link>
-            <Link href="/diet" passHref={true}>
-              <NavItem>
-                <a>Diet</a>
-              </NavItem>
-            </Link>
-            <Link href="/login" passHref={true}>
-              <NavItem>
-                <a>Login</a>
-              </NavItem>
-            </Link>
+            <NavTab title="Profile"></NavTab>
+            <NavTab title="Tech"></NavTab>
+            <NavTab title="Photo"></NavTab>
+            <NavTab title="Diet"></NavTab>
+            <NavTab title="Login"></NavTab>
           </NavList>
           <Indicator navIdx={navIdx} />
         </NavContainer>
@@ -144,29 +125,6 @@ const NavList = styled.ul<{ toggle: boolean }>`
     padding: 0;
     background-color: ${(props) => props.theme.primary};
     border-bottom: 1px solid ${(props) => props.theme.secondary};
-  }
-`;
-
-const NavItem = styled.li`
-  float: left;
-  padding: 10px;
-  text-align: center;
-  width: 80px;
-  cursor: pointer;
-
-  @media only screen and (max-width: ${MediaSize}px) {
-    float: initial;
-    margin: 0;
-    width: 100%;
-    &:hover {
-      border-radius: 0px;
-    }
-    &:nth-child(1) {
-      border-bottom: none;
-    }
-    &:nth-last-child(1) {
-      border-radius: 0 0 20px 20px;
-    }
   }
 `;
 
