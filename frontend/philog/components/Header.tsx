@@ -36,7 +36,9 @@ export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
   return (
     <>
       <Header>
-        <Logo>Philog</Logo>
+        <Link href="/" passHref={true}>
+          <Logo>Philog</Logo>
+        </Link>
         <NavContainer>
           <NavList toggle={showNav}>
             <Link href="/profile" passHref={true}>
@@ -97,7 +99,7 @@ const Header = styled.header`
   color: ${(props) => props.theme.secondary};
 `;
 
-const Logo = styled.p`
+const Logo = styled.a`
   @media only screen and (max-width: ${MediaSize}px) {
     text-align: center;
   }
