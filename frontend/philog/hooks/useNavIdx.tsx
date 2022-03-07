@@ -19,8 +19,8 @@ export const useNavIdx = () => {
       [PageObj.Diet.toLowerCase()]: 3,
       [PageObj.Login.toLowerCase()]: 4,
     };
-    let idx: number = -1;
-    if (pathIdx.hasOwnProperty(path)) idx = pathIdx[path];
+    const idx = pathIdx[path] ?? -1;
+
     if (idx !== navIdx) setNavIdx(idx);
   }, [router.pathname, navIdx]);
 
