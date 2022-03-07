@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { MediaSize, Color, HeaderHeight } from "../utils/constant";
+import { MediaSize, Color, HeaderHeight, PageObj } from "../utils/constant";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Link from "next/link";
 import NavTab from "./NavTab";
@@ -23,11 +23,11 @@ export default function Navbar({ setDarkMode, isDarkMode }: HeaderProps) {
         </Link>
         <NavContainer>
           <NavList toggle={showNav}>
-            <NavTab title="Profile"></NavTab>
-            <NavTab title="Tech"></NavTab>
-            <NavTab title="Photo"></NavTab>
-            <NavTab title="Diet"></NavTab>
-            <NavTab title="Login"></NavTab>
+            <NavTab title={PageObj.Profile}></NavTab>
+            <NavTab title={PageObj.Tech}></NavTab>
+            <NavTab title={PageObj.Photo}></NavTab>
+            <NavTab title={PageObj.Diet}></NavTab>
+            <NavTab title={PageObj.Login}></NavTab>
           </NavList>
           <Indicator navIdx={navIdx} />
         </NavContainer>

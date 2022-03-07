@@ -18,3 +18,11 @@ export const darkTheme = {
   primary: Color.black,
   secondary: Color.white,
 };
+
+export const PageObj = {
+  Profile: "Profile",
+  Tech: "Tech",
+  Photo: "Photo",
+  Diet: "Diet",
+  Login: "Login",
+};
