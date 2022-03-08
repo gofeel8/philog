@@ -1,5 +1,4 @@
 import Header from "./Header";
-import SideBar from "./SideBar";
 import styled from "styled-components";
 import { HeaderHeight } from "../utils/constant";
 import { Dispatch, SetStateAction } from "react";
@@ -22,10 +21,7 @@ export default function Layout({
   return (
     <>
       <Header setDarkMode={setDarkMode} isDarkMode={isDarkMode} />
-      <Content>
-        <SideBar />
-        {children}
-      </Content>
+      <Content>{children}</Content>
     </>
   );
 }
