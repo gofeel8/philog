@@ -1,10 +1,19 @@
 import Seo from "../../components/Seo";
+import Sidebar from "../../components/Sidebar";
+import PostList from "../../components/PostList";
+import styled from "styled-components";
 
-export default function tech() {
+export default function Tech() {
   return (
-    <div>
+    <TechContainer>
       <Seo title="Philog" />
-      기술블로그dd
-    </div>
+      <Sidebar />
+      <PostList />
+    </TechContainer>
   );
 }
+
+const TechContainer = styled.div`
+  margin-top: 100px;
+  display: flex;
+`;

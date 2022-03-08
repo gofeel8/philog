@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle<any>`
   * {
     box-sizing: border-box;
   }
-  ol, ul { list-style:none; };
+  ol, ul { list-style:none;margin:0;padding:0 };
 `;
 
 export default MyApp;

@@ -11,6 +11,8 @@ interface LayoutProps {
 
 const Content = styled.div`
   margin-top: ${HeaderHeight}px;
+  margin-left: 10vw;
+  margin-right: 10vw;
 `;
 
 export default function Layout({
