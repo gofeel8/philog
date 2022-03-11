@@ -56,8 +56,8 @@ const NavList = styled.ul<{ toggle: boolean }>`
     top: ${HeaderHeight}px;
     left: 0;
     margin: 0;
-    background-color: white;
-    border-bottom: 1px solid black;
+    background-color: ${Color.white};
+    border-bottom: 1px solid ${Color.black};
     border-radius: 0 0 20px 20px;
     width: 100%;
     padding: 0;

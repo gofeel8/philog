@@ -16,7 +16,6 @@ export default function Sidebar() {
 }
 
 const SideContainer = styled.div`
-  border-right: 1px solid ${Color.gray};
   width: 180px;
 `;
 
