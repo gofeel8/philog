@@ -19,10 +19,10 @@ export default function Preview() {
 }
 
 const Container = styled.div`
-  border: 0.3px solid ${(props) => props.theme.secondary};
-  border-radius: 20px;
+  border-bottom: 0.3px solid ${(props) => props.theme.secondary};
+  padding: 10px;
   margin-left: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   color: ${(props) => props.theme.secondary};
   cursor: pointer;
   &:hover {

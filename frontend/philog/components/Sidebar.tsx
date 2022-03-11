@@ -26,7 +26,8 @@ const SideList = styled.ul`
 const SideItem = styled.li<{ selected: boolean }>`
   padding: 3px;
   cursor: pointer;
-  color: ${({ selected }) => (selected ? Color.black : Color.lightGray)};
+  color: ${({ selected, theme }) =>
+    selected ? theme.secondary : Color.lightGray};
 
   &:hover {
     color: ${Color.gray};
