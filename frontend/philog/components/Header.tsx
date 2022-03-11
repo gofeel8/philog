@@ -73,7 +73,7 @@ const Button = styled.button`
 `;
 
 const ThemeBtn = styled(Button)`
-  @media only screen and (min-width: ${MediaSize}px) {
+  @media only screen and (min-width: ${MediaSize + 1}px) {
     display: block;
     position: fixed;
     bottom: 20px;
