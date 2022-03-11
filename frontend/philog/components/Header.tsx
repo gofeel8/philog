@@ -43,7 +43,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   position: absolute;
   top: 0;
-  width: 100%;
+  width: calc(100vw - 17px);
   height: ${HeaderHeight}px;
   padding: 0 12vw;
   font-size: 1.2rem;
@@ -77,7 +77,7 @@ const ThemeBtn = styled(Button)`
     display: block;
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left:  90vw;
     width: 60px;
     height: 60px;
     &:hover {
