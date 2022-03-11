@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Color } from "../utils/constant";
+import { Color, MediaSize } from "../utils/constant";
 export default function Sidebar() {
   return (
     <SideContainer>
@@ -17,6 +17,9 @@ export default function Sidebar() {
 
 const SideContainer = styled.div`
   width: 180px;
+  @media only screen and (max-width: ${MediaSize}px) {
+    display: none;
+  }
 `;
 
 const SideList = styled.ul`

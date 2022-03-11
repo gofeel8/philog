@@ -1,18 +1,25 @@
 import styled from "styled-components";
-import { Color } from "../utils/constant";
+import { Color, MediaSize } from "../utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPen } from "@fortawesome/free-solid-svg-icons";
 
 export default function PostTool() {
   return (
     <Container>
-      <div></div>
-      <SearchBar>
-        <input placeholder="검색어를 입력하세요"></input>
-        <button>
-          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-        </button>
-      </SearchBar>
+      <FlexContainer>
+        <Select>
+          <option value="">전체보기</option>
+          <option value="">게시글1(3)</option>
+          <option value="">게시글2(5)</option>
+          <option value="">게시글3(3)</option>
+        </Select>
+        <SearchBar>
+          <input placeholder="검색어를 입력하세요"></input>
+          <button>
+            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+          </button>
+        </SearchBar>
+      </FlexContainer>
       <WriteBtn>
         <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
       </WriteBtn>
@@ -20,9 +27,37 @@ export default function PostTool() {
   );
 }
 
+const FlexContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  @media only screen and (max-width: ${MediaSize}px) {
+    justify-content: space-between;
+  }
+`;
+
+const Select = styled.select`
+  display: none;
+  width: 100px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: transparent;
+  color: ${({ theme }) => theme.secondary};
+  @media only screen and (max-width: ${MediaSize}px) {
+    display: block;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
 const WriteBtn = styled.button`
-  width: 40px;
-  height: 40px;
+  position: absolute;
+  right: 30px;
+  top: 140px;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -42,6 +77,7 @@ const SearchBar = styled.div`
 
   & input {
     flex-grow: 1;
+    width: 100%;
     border: none;
     outline: none;
     background-color: transparent;
@@ -63,6 +99,8 @@ const SearchBar = styled.div`
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   margin-bottom: 20px;
   justify-content: space-between;
   color: ${(props) => props.theme.secondary};
