@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Color, MediaSize } from "../utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPen } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function PostTool() {
   return (
@@ -21,7 +22,11 @@ export default function PostTool() {
         </SearchBar>
       </FlexContainer>
       <WriteBtn>
-        <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+        <Link href={"/write"} passHref={true}>
+          <a>
+            <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+          </a>
+        </Link>
       </WriteBtn>
     </Container>
   );

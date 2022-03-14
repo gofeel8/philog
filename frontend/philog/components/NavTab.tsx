@@ -8,7 +8,7 @@ interface NavTabProps {
 
 export default function NavTab({ title }: NavTabProps) {
   return (
-    <Link href={title.toLowerCase()} passHref={true}>
+    <Link href={`/${title.toLowerCase()}`} passHref={true}>
       <NavItem>
         <a>{title}</a>
       </NavItem>
