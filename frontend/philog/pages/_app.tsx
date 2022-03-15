@@ -3,13 +3,7 @@ import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { whiteTheme, darkTheme } from "../utils/constant";
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
+import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isDarkMode, setDarkMode] = useState(false);
