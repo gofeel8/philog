@@ -22,7 +22,7 @@ export default function PostTool() {
         </SearchBar>
       </FlexContainer>
       <WriteBtn>
-        <Link href={"/write"} passHref={true}>
+        <Link href={"/tech/write"} passHref={true}>
           <a>
             <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
           </a>
