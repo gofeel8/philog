@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import * as React from "react";
 import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import { EditorWithForwardedProps } from "./WrappedEditor";
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
@@ -39,17 +39,15 @@ const WysiwygEditor: React.FC<Props> = (props) => {
     initialEditType,
     useCommandShortcut,
   } = props;
-  const [mode, setMode] = useRecoilState(modeState);
+  const isDarkMode = useRecoilValue(modeState);
 
   const editorRef = React.useRef<EditorType>();
   const handleChange = React.useCallback(() => {
     if (!editorRef.current) {
       return;
     }
-
     const instance = editorRef.current.getInstance();
     const valueType = props.valueType || "markdown";
-
     props.onChange(
       valueType === "markdown" ? instance.getMarkdown() : instance.getHTML()
     );
@@ -60,8 +58,12 @@ const WysiwygEditor: React.FC<Props> = (props) => {
       return;
     }
     const root = editorRef.current.getRootElement();
-    root.classList.toggle("toastui-editor-dark");
-  }, [mode]);
+    if (isDarkMode) {
+      root.classList.add("toastui-editor-dark");
+    } else {
+      root.classList.remove("toastui-editor-dark");
+    }
+  }, [isDarkMode]);
 
   return (
     <div>
