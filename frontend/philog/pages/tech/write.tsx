@@ -3,20 +3,39 @@ import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 import styled from "styled-components";
 import { Color } from "../../utils/constant";
 import WysiwygEditor from "../../components/ToastEditor";
+import { useState } from "react";
 
 export default function Component() {
+  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
   const clickSave = () => {
-    console.log("click");
+    console.log(category);
+    console.log(title);
+    console.log(content);
   };
   const changeHandler = (content: string) => {
-    console.log(content);
+    setContent(content);
   };
   return (
     <Container>
       <Header>
         <Information>
-          <Category placeholder="Category"></Category>
-          <Title placeholder="Title"></Title>
+          <Category
+            placeholder="Category"
+            value={category}
+            onChange={(event) => {
+              setCategory(event.target.value);
+            }}
+          ></Category>
+          <Title
+            placeholder="Title"
+            value={title}
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
+          ></Title>
         </Information>
         <Button onClick={clickSave}>Save</Button>
       </Header>
