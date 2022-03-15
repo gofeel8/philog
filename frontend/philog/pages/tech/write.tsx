@@ -24,7 +24,7 @@ export default function Component() {
         <WysiwygEditor
           onChange={changeHandler}
           previewStyle="tab"
-          height="570px"
+          height="550px"
           initialEditType="markdown"
           useCommandShortcut={true}
         />

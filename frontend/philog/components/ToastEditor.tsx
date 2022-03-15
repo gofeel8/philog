@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import * as React from "react";
 import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import { EditorWithForwardedProps } from "./WrappedEditor";
+import { atom, useRecoilState } from "recoil";
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
@@ -25,6 +26,11 @@ interface Props extends EditorProps {
   valueType?: "markdown" | "html";
 }
 
+const modeState = atom({
+  key: "modeState", // unique ID (with respect to other atoms/selectors)
+  default: false, // default value (aka initial value)
+});
+
 const WysiwygEditor: React.FC<Props> = (props) => {
   const {
     initialValue,
@@ -33,6 +39,7 @@ const WysiwygEditor: React.FC<Props> = (props) => {
     initialEditType,
     useCommandShortcut,
   } = props;
+  const [mode, setMode] = useRecoilState(modeState);
 
   const editorRef = React.useRef<EditorType>();
   const handleChange = React.useCallback(() => {
@@ -47,6 +54,14 @@ const WysiwygEditor: React.FC<Props> = (props) => {
       valueType === "markdown" ? instance.getMarkdown() : instance.getHTML()
     );
   }, [props, editorRef]);
+
+  React.useEffect(() => {
+    if (!editorRef.current) {
+      return;
+    }
+    const root = editorRef.current.getRootElement();
+    root.classList.toggle("toastui-editor-dark");
+  }, [mode]);
 
   return (
     <div>
