@@ -1,17 +1,16 @@
-import dynamic from "next/dynamic";
-import { useRef } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
-import { EditorProps } from "@toast-ui/react-editor";
 import styled from "styled-components";
 import { Color } from "../../utils/constant";
-
-const Editor = dynamic<EditorProps>(
-  () => import("@toast-ui/react-editor").then((m) => m.Editor),
-  { ssr: false }
-);
+import WysiwygEditor from "../../components/ToastEditor";
 
 export default function Component() {
+  const clickSave = () => {
+    console.log("click");
+  };
+  const changeHandler = (content: string) => {
+    console.log(content);
+  };
   return (
     <Container>
       <Header>
@@ -19,18 +18,24 @@ export default function Component() {
           <Category placeholder="Category"></Category>
           <Title placeholder="Title"></Title>
         </Information>
-        <Button>Save</Button>
+        <Button onClick={clickSave}>Save</Button>
       </Header>
-      <Editor
-        previewStyle="tab"
-        height="570px"
-        initialEditType="markdown"
-        theme="dark"
-        useCommandShortcut={true}
-      />
+      <EditorWrapper>
+        <WysiwygEditor
+          onChange={changeHandler}
+          previewStyle="tab"
+          height="570px"
+          initialEditType="markdown"
+          useCommandShortcut={true}
+        />
+      </EditorWrapper>
     </Container>
   );
 }
+
+const EditorWrapper = styled.div`
+  background-color: white;
+`;
 
 const Button = styled.button`
   border: 1px solid ${Color.lightGray};
