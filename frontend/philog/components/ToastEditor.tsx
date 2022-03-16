@@ -2,7 +2,8 @@ import dynamic from "next/dynamic";
 import * as React from "react";
 import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import { EditorWithForwardedProps } from "./WrappedEditor";
-import { atom, useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
+import { modeState } from "../states";
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
@@ -25,11 +26,6 @@ interface Props extends EditorProps {
 
   valueType?: "markdown" | "html";
 }
-
-const modeState = atom({
-  key: "modeState", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
-});
 
 const WysiwygEditor: React.FC<Props> = (props) => {
   const {
