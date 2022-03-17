@@ -2,7 +2,7 @@ import { ForbiddenException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -31,5 +31,11 @@ export class UserService {
       createUserDto,
     );
     return result;
+  }
+
+  async findAll(): Promise<User[]> {
+    return this.userRepository.find({
+      select: ['seq', 'userId', 'userName', 'role'],
+    });
   }
 }
