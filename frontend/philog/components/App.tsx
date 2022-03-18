@@ -29,7 +29,10 @@ export default function App({ children, setDarkMode, isDarkMode }: AppProps) {
           .get("http://localhost:3300/auth/checkToken", {
             headers: { Authorization: `Bearer ${jwt}` },
           })
-          .then(() => setToken(jwt));
+          .then(() => setToken(jwt))
+          .catch(() => {
+            localStorage.removeItem("jwt");
+          });
       }
     }
   }, []);
