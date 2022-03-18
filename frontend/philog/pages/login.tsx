@@ -31,6 +31,7 @@ export default function Login() {
   const { mutate, isLoading } = useMutation(loginUser, {
     onSuccess: ({ accessToken }) => {
       setToken(accessToken);
+      localStorage.setItem("jwt", accessToken);
       router.push("/");
     },
     onError: () => {

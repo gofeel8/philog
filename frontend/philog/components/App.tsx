@@ -2,8 +2,9 @@ import Header from "./Header";
 import styled from "styled-components";
 import { HeaderHeight } from "../utils/constant";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { modeState } from "../states";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { modeState, tokenState } from "../states";
+import axios from "axios";
 
 interface AppProps {
   children: React.ReactNode;
@@ -18,10 +19,21 @@ const Content = styled.div`
 `;
 
 export default function App({ children, setDarkMode, isDarkMode }: AppProps) {
-  const [mode, setMode] = useRecoilState(modeState);
+  const setMode = useSetRecoilState(modeState);
+  const [token, setToken] = useRecoilState(tokenState);
   useEffect(() => {
-    console.log("실행");
-  });
+    if (!token) {
+      const jwt = localStorage.getItem("jwt");
+      if (jwt) {
+        axios
+          .get("http://localhost:3300/auth/checkToken", {
+            headers: { Authorization: `Bearer ${jwt}` },
+          })
+          .then(() => setToken(jwt));
+      }
+    }
+  }, []);
+
   useEffect(() => {
     setMode(isDarkMode);
   }, [isDarkMode, setMode]);
