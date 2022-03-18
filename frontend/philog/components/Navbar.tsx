@@ -1,5 +1,7 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useNavIdx } from "../hooks/useNavIdx";
+import { tokenState } from "../states";
 import { Color, HeaderHeight, MediaSize, PageObj } from "../utils/constant";
 import NavTab from "./NavTab";
 
@@ -9,7 +11,7 @@ interface NavbarProps {
 
 export default function Navbar({ showNav }: NavbarProps) {
   const navIdx = useNavIdx();
-
+  const token = useRecoilValue(tokenState);
   return (
     <NavContainer>
       <NavList toggle={showNav}>
@@ -17,8 +19,13 @@ export default function Navbar({ showNav }: NavbarProps) {
         <NavTab title={PageObj.Tech}></NavTab>
         <NavTab title={PageObj.Photo}></NavTab>
         <NavTab title={PageObj.Diet}></NavTab>
-        <NavTab title={PageObj.Login}></NavTab>
+        {token ? (
+          <NavTab title={PageObj.Logout}></NavTab>
+        ) : (
+          <NavTab title={PageObj.Login}></NavTab>
+        )}
       </NavList>
+
       <Indicator navIdx={navIdx} />
     </NavContainer>
   );

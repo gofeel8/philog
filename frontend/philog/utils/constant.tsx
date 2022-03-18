@@ -25,4 +25,5 @@ export const PageObj = {
   Photo: "Photo",
   Diet: "Diet",
   Login: "Login",
+  Logout: "Logout",
 };
