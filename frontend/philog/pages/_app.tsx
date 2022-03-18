@@ -4,18 +4,23 @@ import Layout from "../components/Layout";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { whiteTheme, darkTheme } from "../utils/constant";
 import { RecoilRoot } from "recoil";
+import { QueryClientProvider, QueryClient } from "react-query";
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isDarkMode, setDarkMode] = useState(false);
   return (
-    <RecoilRoot>
-      <ThemeProvider theme={isDarkMode ? darkTheme : whiteTheme}>
-        <Layout setDarkMode={setDarkMode} isDarkMode={isDarkMode}>
-          <GlobalStyle theme={isDarkMode ? darkTheme : whiteTheme} />
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
-    </RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <ThemeProvider theme={isDarkMode ? darkTheme : whiteTheme}>
+          <Layout setDarkMode={setDarkMode} isDarkMode={isDarkMode}>
+            <GlobalStyle theme={isDarkMode ? darkTheme : whiteTheme} />
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 }
 

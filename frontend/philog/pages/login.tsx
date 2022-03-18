@@ -1,42 +1,70 @@
+import axios from "axios";
 import { FormEvent, useState } from "react";
+import { useMutation } from "react-query";
 import styled from "styled-components";
 import Seo from "../components/Seo";
 import { Color } from "../utils/constant";
+import { tokenState } from "../states";
+import { useSetRecoilState } from "recoil";
+import { useRouter } from "next/router";
+interface LoginInfo {
+  userId: string;
+  password: string;
+}
 
 export default function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const setToken = useSetRecoilState(tokenState);
+  const router = useRouter();
+
   const LoginHandler = (event: FormEvent) => {
-    console.log(id);
-    console.log(password);
+    mutate({ userId: id, password: password });
     event.preventDefault();
   };
+
+  const loginUser = async (user: LoginInfo) => {
+    const { data } = await axios.post("http://localhost:3300/auth/login", user);
+    return data;
+  };
+
+  const { mutate, isLoading } = useMutation(loginUser, {
+    onSuccess: ({ accessToken }) => {
+      setToken(accessToken);
+      router.push("/");
+    },
+    onError: () => {
+      alert("Who are you?");
+    },
+  });
 
   return (
     <Container>
       <Seo title="Philog" />
       <LoginWrapper>
-        <form onSubmit={LoginHandler}>
-          <Label>
-            Admin ID:
-            <input
-              type="text"
-              name="id"
-              value={id}
-              onChange={({ target }) => setId(target.value)}
-            />
-          </Label>
-          <Label>
-            Password:
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </Label>
-          <Submit type="submit" value="Login" />
-        </form>
+        {isLoading ? (
+          <>Checking...</>
+        ) : (
+          <form onSubmit={LoginHandler}>
+            <Label>
+              Admin ID:
+              <input
+                type="text"
+                value={id}
+                onChange={({ target }) => setId(target.value)}
+              />
+            </Label>
+            <Label>
+              Password:
+              <input
+                type="password"
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </Label>
+            <Submit type="submit" value="Login" />
+          </form>
+        )}
       </LoginWrapper>
     </Container>
   );
@@ -58,7 +86,6 @@ const Submit = styled.input`
 `;
 
 const Label = styled.label`
-  color: ${(props) => props.theme.secondary};
   & input {
     width: 100%;
     margin-bottom: 20px;
@@ -77,6 +104,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   height: 90vh;
+  color: ${(props) => props.theme.secondary};
 `;
 
 const LoginWrapper = styled.div`
