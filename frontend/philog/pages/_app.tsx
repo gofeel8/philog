@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
+import App from "../components/App";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { whiteTheme, darkTheme } from "../utils/constant";
 import { RecoilRoot } from "recoil";
@@ -14,10 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <ThemeProvider theme={isDarkMode ? darkTheme : whiteTheme}>
-          <Layout setDarkMode={setDarkMode} isDarkMode={isDarkMode}>
+          <App setDarkMode={setDarkMode} isDarkMode={isDarkMode}>
             <GlobalStyle theme={isDarkMode ? darkTheme : whiteTheme} />
             <Component {...pageProps} />
-          </Layout>
+          </App>
         </ThemeProvider>
       </RecoilRoot>
     </QueryClientProvider>

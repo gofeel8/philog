@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { modeState } from "../states";
 
-interface LayoutProps {
+interface AppProps {
   children: React.ReactNode;
   setDarkMode: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
@@ -17,13 +17,11 @@ const Content = styled.div`
   margin-right: 10vw;
 `;
 
-export default function Layout({
-  children,
-  setDarkMode,
-  isDarkMode,
-}: LayoutProps) {
+export default function App({ children, setDarkMode, isDarkMode }: AppProps) {
   const [mode, setMode] = useRecoilState(modeState);
-
+  useEffect(() => {
+    console.log("실행");
+  });
   useEffect(() => {
     setMode(isDarkMode);
   }, [isDarkMode, setMode]);
