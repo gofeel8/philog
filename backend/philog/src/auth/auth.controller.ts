@@ -29,4 +29,9 @@ export class AuthController {
     const userInfo = req.user;
     return userInfo;
   }
+
+  @Post('logout')
+  remoceCookie(@Res({ passthrough: true }) res) {
+    res.clearCookie('jwt');
+  }
 }
