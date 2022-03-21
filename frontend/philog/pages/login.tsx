@@ -4,7 +4,7 @@ import { useMutation } from "react-query";
 import styled from "styled-components";
 import Seo from "../components/Seo";
 import { Color } from "../utils/constant";
-import { tokenState } from "../states";
+import { userState } from "../states";
 import { useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 interface LoginInfo {
@@ -15,7 +15,7 @@ interface LoginInfo {
 export default function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const setToken = useSetRecoilState(tokenState);
+  const setUser = useSetRecoilState(userState);
   const router = useRouter();
 
   const LoginHandler = (event: FormEvent) => {
@@ -30,9 +30,8 @@ export default function Login() {
   };
 
   const { mutate, isLoading } = useMutation(loginUser, {
-    onSuccess: ({ accessToken }) => {
-      setToken(accessToken);
-      localStorage.setItem("jwt", accessToken);
+    onSuccess: (userId) => {
+      setUser(userId);
       router.push("/");
     },
     onError: () => {

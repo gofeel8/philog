@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { HeaderHeight } from "../utils/constant";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { modeState, tokenState } from "../states";
+import { modeState, userState } from "../states";
 import axios from "axios";
 
 interface AppProps {
@@ -20,9 +20,9 @@ const Content = styled.div`
 
 export default function App({ children, setDarkMode, isDarkMode }: AppProps) {
   const setMode = useSetRecoilState(modeState);
-  const [token, setToken] = useRecoilState(tokenState);
+  const [user, setUser] = useRecoilState(userState);
   useEffect(() => {
-    if (!token) {
+    if (!user) {
       axios.defaults.withCredentials = true;
       axios.get("http://localhost:3300/auth/checkToken").then((data) => {
         console.log(data);

@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { tokenState } from "../states";
+import { userState } from "../states";
 export default function Component() {
   const router = useRouter();
-  const setToken = useSetRecoilState(tokenState);
+  const setUser = useSetRecoilState(userState);
   useEffect(() => {
-    localStorage.removeItem("jwt");
-    setToken(null);
+    //캐시 지워야하는디..
+    setUser(null);
     router.push("/");
   });
   return <></>;
