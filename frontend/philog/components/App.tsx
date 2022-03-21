@@ -5,11 +5,13 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { modeState, userState } from "../states";
 import axios from "axios";
+import React from "react";
 
 interface AppProps {
   children: React.ReactNode;
   setDarkMode: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
+  isLogin: boolean;
 }
 
 const Content = styled.div`
@@ -18,14 +20,19 @@ const Content = styled.div`
   margin-right: 10vw;
 `;
 
-export default function App({ children, setDarkMode, isDarkMode }: AppProps) {
+export default React.memo(function App({
+  children,
+  setDarkMode,
+  isDarkMode,
+  isLogin,
+}: AppProps) {
   const setMode = useSetRecoilState(modeState);
   const [user, setUser] = useRecoilState(userState);
   useEffect(() => {
-    if (!user) {
+    if (isLogin) {
       axios.defaults.withCredentials = true;
-      axios.get("http://localhost:3300/auth/checkToken").then((data) => {
-        console.log(data);
+      axios.get("http://localhost:3300/auth/checkToken").then(({ data }) => {
+        setUser(data.userId);
       });
     }
   }, []);
@@ -36,8 +43,12 @@ export default function App({ children, setDarkMode, isDarkMode }: AppProps) {
 
   return (
     <>
-      <Header setDarkMode={setDarkMode} isDarkMode={isDarkMode} />
+      <Header
+        isLogin={isLogin || user ? true : false}
+        setDarkMode={setDarkMode}
+        isDarkMode={isDarkMode}
+      />
       <Content>{children}</Content>
     </>
   );
-}
+});

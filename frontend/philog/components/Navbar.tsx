@@ -7,9 +7,10 @@ import NavTab from "./NavTab";
 
 interface NavbarProps {
   showNav: boolean;
+  isLogin: boolean;
 }
 
-export default function Navbar({ showNav }: NavbarProps) {
+export default function Navbar({ showNav, isLogin }: NavbarProps) {
   const navIdx = useNavIdx();
   const user = useRecoilValue(userState);
   return (
@@ -19,7 +20,7 @@ export default function Navbar({ showNav }: NavbarProps) {
         <NavTab title={PageObj.Tech}></NavTab>
         <NavTab title={PageObj.Photo}></NavTab>
         <NavTab title={PageObj.Diet}></NavTab>
-        {user ? (
+        {isLogin ? (
           <NavTab title={PageObj.Logout}></NavTab>
         ) : (
           <NavTab title={PageObj.Login}></NavTab>

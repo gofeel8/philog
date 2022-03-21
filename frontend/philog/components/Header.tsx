@@ -8,9 +8,14 @@ import Navbar from "./Navbar";
 interface HeaderProps {
   setDarkMode: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
+  isLogin: boolean;
 }
 
-export default function Header({ setDarkMode, isDarkMode }: HeaderProps) {
+export default function Header({
+  setDarkMode,
+  isDarkMode,
+  isLogin,
+}: HeaderProps) {
   const [showNav, setShowNav] = useState(false);
 
   return (
@@ -19,7 +24,7 @@ export default function Header({ setDarkMode, isDarkMode }: HeaderProps) {
         <Link href="/" passHref={true}>
           <Logo>Philog</Logo>
         </Link>
-        <Navbar showNav={showNav}></Navbar>
+        <Navbar isLogin={isLogin} showNav={showNav}></Navbar>
         <BtnContainer>
           <ThemeBtn onClick={() => setDarkMode((prev) => !prev)}>
             <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
