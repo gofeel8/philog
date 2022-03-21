@@ -23,17 +23,10 @@ export default function App({ children, setDarkMode, isDarkMode }: AppProps) {
   const [token, setToken] = useRecoilState(tokenState);
   useEffect(() => {
     if (!token) {
-      const jwt = localStorage.getItem("jwt");
-      if (jwt) {
-        axios
-          .get("http://localhost:3300/auth/checkToken", {
-            headers: { Authorization: `Bearer ${jwt}` },
-          })
-          .then(() => setToken(jwt))
-          .catch(() => {
-            localStorage.removeItem("jwt");
-          });
-      }
+      axios.defaults.withCredentials = true;
+      axios.get("http://localhost:3300/auth/checkToken").then((data) => {
+        console.log(data);
+      });
     }
   }, []);
 
