@@ -5,39 +5,67 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { whiteTheme, darkTheme } from "../utils/constant";
 import { RecoilRoot } from "recoil";
 import { QueryClientProvider, QueryClient } from "react-query";
-import App from "next/app";
-
-const queryClient = new QueryClient();
+import { createContext } from "react";
+import axios from "axios";
 
 interface MyAppProps extends AppProps {
-  jwt: string;
+  isInit: boolean;
+  userId: string;
 }
 
-function MyApp({ pageProps, Component, jwt }: MyAppProps) {
+export const UserContext = createContext({
+  user: "",
+  setCurrentUser: (userId: string) => {},
+});
+function MyApp({ pageProps, Component, isInit, userId }: MyAppProps) {
   const [isDarkMode, setDarkMode] = useState(false);
+  const [user, setUser] = useState(userId);
+  const queryClient = new QueryClient();
+  const setCurrentUser = (userId: string) => {
+    setUser(userId);
+  };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <ThemeProvider theme={isDarkMode ? darkTheme : whiteTheme}>
-          <AppLayout
-            isLogin={jwt ? true : false}
-            setDarkMode={setDarkMode}
-            isDarkMode={isDarkMode}
-          >
-            <GlobalStyle theme={isDarkMode ? darkTheme : whiteTheme} />
-            <Component {...pageProps} />
-          </AppLayout>
-        </ThemeProvider>
-      </RecoilRoot>
-    </QueryClientProvider>
+    <UserContext.Provider value={{ user, setCurrentUser }}>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <ThemeProvider theme={isDarkMode ? darkTheme : whiteTheme}>
+            <AppLayout
+              isLogin={user ? true : false}
+              setDarkMode={setDarkMode}
+              isDarkMode={isDarkMode}
+            >
+              <GlobalStyle theme={isDarkMode ? darkTheme : whiteTheme} />
+              <Component {...pageProps} />
+            </AppLayout>
+          </ThemeProvider>
+        </RecoilRoot>
+      </QueryClientProvider>
+    </UserContext.Provider>
   );
 }
 
 MyApp.getInitialProps = async (appContext: any) => {
-  const appProps = await App.getInitialProps(appContext);
-  const jwt = appContext?.ctx?.req?.cookies?.jwt;
-  return { ...appProps, jwt };
+  let isServer = process.browser ? false : true;
+  if (isServer) {
+    const jwt = appContext?.ctx?.req?.cookies?.jwt;
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3300/api/auth/checkToken",
+        {
+          withCredentials: true,
+          headers: {
+            Cookie: `jwt=${jwt}`,
+          },
+        }
+      );
+      return { userId: data.userId };
+    } catch {
+      return { userId: "" };
+    }
+  } else {
+    return {};
+  }
 };
 
 const GlobalStyle = createGlobalStyle<any>`
@@ -60,3 +88,6 @@ const GlobalStyle = createGlobalStyle<any>`
 `;
 
 export default MyApp;
+function Dispatch<T>(): any {
+  throw new Error("Function not implemented.");
+}

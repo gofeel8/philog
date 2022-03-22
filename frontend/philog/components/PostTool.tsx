@@ -3,11 +3,11 @@ import { Color, MediaSize } from "../utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPen } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { useRecoilState } from "recoil";
-import { userState } from "../states";
+import { useContext } from "react";
+import { UserContext } from "../pages/_app";
 
 export default function PostTool() {
-  const [user, setUser] = useRecoilState(userState);
+  const { user } = useContext(UserContext);
   return (
     <Container>
       <FlexContainer>

@@ -1,12 +1,11 @@
 import axios from "axios";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useMutation } from "react-query";
 import styled from "styled-components";
 import Seo from "../components/Seo";
 import { Color } from "../utils/constant";
-import { userState } from "../states";
-import { useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
+import { UserContext } from "./_app";
 interface LoginInfo {
   userId: string;
   password: string;
@@ -15,7 +14,8 @@ interface LoginInfo {
 export default function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const setUser = useSetRecoilState(userState);
+
+  const { setCurrentUser } = useContext(UserContext);
   const router = useRouter();
 
   const LoginHandler = (event: FormEvent) => {
@@ -31,7 +31,7 @@ export default function Login() {
 
   const { mutate, isLoading } = useMutation(loginUser, {
     onSuccess: (userId) => {
-      setUser(userId);
+      setCurrentUser(userId);
       router.push("/");
     },
     onError: () => {

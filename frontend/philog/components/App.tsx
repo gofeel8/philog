@@ -1,11 +1,11 @@
 import Header from "./Header";
 import styled from "styled-components";
 import { HeaderHeight } from "../utils/constant";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { modeState, userState } from "../states";
-import axios from "axios";
+import { Dispatch, SetStateAction, useContext, useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { modeState } from "../states";
 import React from "react";
+import { UserContext } from "../pages/_app";
 
 interface AppProps {
   children: React.ReactNode;
@@ -27,15 +27,7 @@ export default React.memo(function App({
   isLogin,
 }: AppProps) {
   const setMode = useSetRecoilState(modeState);
-  const [user, setUser] = useRecoilState(userState);
-  useEffect(() => {
-    if (isLogin) {
-      axios.defaults.withCredentials = true;
-      axios.get("/api/auth/checkToken").then(({ data }) => {
-        setUser(data.userId);
-      });
-    }
-  }, []);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     setMode(isDarkMode);

@@ -3,12 +3,14 @@ import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 import styled from "styled-components";
 import { Color } from "../../utils/constant";
 import WysiwygEditor from "../../components/ToastEditor";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../_app";
 
 export default function Component() {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const User = useContext(UserContext);
 
   const clickSave = () => {
     console.log(category);

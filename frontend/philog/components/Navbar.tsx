@@ -1,7 +1,5 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useNavIdx } from "../hooks/useNavIdx";
-import { userState } from "../states";
 import { Color, HeaderHeight, MediaSize, PageObj } from "../utils/constant";
 import NavTab from "./NavTab";
 
@@ -12,7 +10,6 @@ interface NavbarProps {
 
 export default function Navbar({ showNav, isLogin }: NavbarProps) {
   const navIdx = useNavIdx();
-  const user = useRecoilValue(userState);
   return (
     <NavContainer>
       <NavList toggle={showNav}>
