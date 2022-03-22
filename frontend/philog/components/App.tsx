@@ -31,11 +31,9 @@ export default React.memo(function App({
   useEffect(() => {
     if (isLogin) {
       axios.defaults.withCredentials = true;
-      axios
-        .get("http://localhost:3300/api/auth/checkToken")
-        .then(({ data }) => {
-          setUser(data.userId);
-        });
+      axios.get("/api/auth/checkToken").then(({ data }) => {
+        setUser(data.userId);
+      });
     }
   }, []);
 

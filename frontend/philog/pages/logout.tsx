@@ -10,7 +10,7 @@ export default function Component() {
 
   const logoutUser = async () => {
     axios.defaults.withCredentials = true;
-    await axios.post("http://localhost:3300/api/auth/logout");
+    await axios.post("/api/auth/logout");
   };
 
   const { mutate } = useMutation(logoutUser, {
