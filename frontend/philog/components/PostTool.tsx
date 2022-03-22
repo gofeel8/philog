@@ -3,8 +3,11 @@ import { Color, MediaSize } from "../utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPen } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useRecoilState } from "recoil";
+import { userState } from "../states";
 
 export default function PostTool() {
+  const [user, setUser] = useRecoilState(userState);
   return (
     <Container>
       <FlexContainer>
@@ -21,13 +24,17 @@ export default function PostTool() {
           </button>
         </SearchBar>
       </FlexContainer>
-      <WriteBtn>
-        <Link href={"/tech/write"} passHref={true}>
-          <a>
-            <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-          </a>
-        </Link>
-      </WriteBtn>
+      {user ? (
+        <WriteBtn>
+          <Link href={"/tech/write"} passHref={true}>
+            <a>
+              <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+            </a>
+          </Link>
+        </WriteBtn>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }
