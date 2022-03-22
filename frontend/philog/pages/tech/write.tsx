@@ -4,9 +4,15 @@ import styled from "styled-components";
 import { Color } from "../../utils/constant";
 import WysiwygEditor from "../../components/ToastEditor";
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
+
+interface IBoard {
+  category: string;
+  title: string;
+  content: string;
+}
 
 export default function Component() {
   const [category, setCategory] = useState("");
@@ -23,43 +29,59 @@ export default function Component() {
   });
 
   const clickSave = () => {
-    console.log(category);
-    console.log(title);
-    console.log(content);
+    mutate({ category, title, content });
   };
+
+  const writeBoard = async (board: IBoard) => {
+    const { data } = await axios.post("/api/board", board);
+    return data;
+  };
+
+  const { mutate, isLoading } = useMutation(writeBoard, {
+    onSuccess: () => {
+      router.push("/tech");
+    },
+  });
+
   const changeHandler = (content: string) => {
     setContent(content);
   };
   return (
     <Container>
-      <Header>
-        <Information>
-          <Category
-            placeholder="Category"
-            value={category}
-            onChange={(event) => {
-              setCategory(event.target.value);
-            }}
-          ></Category>
-          <Title
-            placeholder="Title"
-            value={title}
-            onChange={(event) => {
-              setTitle(event.target.value);
-            }}
-          ></Title>
-        </Information>
-        <Button onClick={clickSave}>Save</Button>
-      </Header>
-      <EditorWrapper>
-        <WysiwygEditor
-          onChange={changeHandler}
-          previewStyle="tab"
-          height="70vh"
-          initialEditType="markdown"
-          useCommandShortcut={true}
-        />
-      </EditorWrapper>
+      {isLoading ? (
+        <></>
+      ) : (
+        <>
+          <Header>
+            <Information>
+              <Category
+                placeholder="Category"
+                value={category}
+                onChange={(event) => {
+                  setCategory(event.target.value);
+                }}
+              ></Category>
+              <Title
+                placeholder="Title"
+                value={title}
+                onChange={(event) => {
+                  setTitle(event.target.value);
+                }}
+              ></Title>
+            </Information>
+            <Button onClick={clickSave}>Save</Button>
+          </Header>
+          <EditorWrapper>
+            <WysiwygEditor
+              onChange={changeHandler}
+              previewStyle="tab"
+              height="70vh"
+              initialEditType="markdown"
+              useCommandShortcut={true}
+            />
+          </EditorWrapper>
+        </>
+      )}
     </Container>
   );
 }
