@@ -37,6 +37,7 @@ function MyApp({ pageProps, Component, jwt }: MyAppProps) {
 MyApp.getInitialProps = async (appContext: any) => {
   const appProps = await App.getInitialProps(appContext);
   const jwt = appContext?.ctx?.req?.cookies?.jwt;
+  console.log(jwt);
   return { ...appProps, jwt };
 };
 
