@@ -8,7 +8,6 @@ export default function Component() {
   const router = useRouter();
 
   const logoutUser = async () => {
-    axios.defaults.withCredentials = true;
     await axios.post("/api/auth/logout");
   };
 

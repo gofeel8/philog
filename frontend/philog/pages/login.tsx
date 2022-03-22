@@ -24,7 +24,6 @@ export default function Login() {
   };
 
   const loginUser = async (user: LoginInfo) => {
-    axios.defaults.withCredentials = true;
     const { data } = await axios.post("/api/auth/login", user);
     return data;
   };

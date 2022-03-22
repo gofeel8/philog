@@ -17,7 +17,7 @@ export const UserContext = createContext({
   user: "",
   setCurrentUser: (userId: string) => {},
 });
-function MyApp({ pageProps, Component, isInit, userId }: MyAppProps) {
+function MyApp({ pageProps, Component, userId }: MyAppProps) {
   const [isDarkMode, setDarkMode] = useState(false);
   const [user, setUser] = useState(userId);
   const queryClient = new QueryClient();
@@ -51,7 +51,7 @@ MyApp.getInitialProps = async (appContext: any) => {
     const jwt = appContext?.ctx?.req?.cookies?.jwt;
     try {
       const { data } = await axios.get(
-        "http://localhost:3300/api/auth/checkToken",
+        `${process.env.SERVER_URL}/api/auth/checkToken`,
         {
           withCredentials: true,
           headers: {
@@ -88,6 +88,3 @@ const GlobalStyle = createGlobalStyle<any>`
 `;
 
 export default MyApp;
-function Dispatch<T>(): any {
-  throw new Error("Function not implemented.");
-}
