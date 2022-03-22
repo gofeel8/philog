@@ -3,14 +3,24 @@ import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 import styled from "styled-components";
 import { Color } from "../../utils/constant";
 import WysiwygEditor from "../../components/ToastEditor";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../_app";
+import { useState } from "react";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Component() {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const User = useContext(UserContext);
+  const router = useRouter();
+  useQuery("checkJWT", () => axios.get("/api/auth/checkToken"), {
+    retry: false,
+    refetchOnWindowFocus: false,
+    onError: (error) => {
+      alert("로그인이 필요합니다");
+      router.push("/");
+    },
+  });
 
   const clickSave = () => {
     console.log(category);
