@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/createBoard.dto';
 import { Role } from 'src/auth/roles.decorator';
@@ -19,7 +19,12 @@ export class BoardController {
   }
 
   @Get()
-  find(): Promise<Board[]> {
-    return this.boardService.find();
+  findAll(): Promise<Board[]> {
+    return this.boardService.findPostList();
+  }
+
+  @Get('/:id')
+  find(@Param('id') id): Promise<Board> {
+    return this.boardService.findPost(id);
   }
 }

@@ -15,10 +15,14 @@ export class BoardService {
     return result;
   }
 
-  async find(): Promise<Board[]> {
+  async findPostList(): Promise<Board[]> {
     return this.boardRepository.find({
       select: ['seq', 'title', 'content', 'createdAt'],
       order: { seq: 'DESC' },
     });
+  }
+
+  async findPost(seq: number): Promise<Board> {
+    return this.boardRepository.findOne({ seq });
   }
 }
