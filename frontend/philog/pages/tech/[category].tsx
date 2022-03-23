@@ -1,26 +1,18 @@
-import Seo from "../../components/Seo";
-import Sidebar from "../../components/Sidebar";
 import PostList from "../../components/PostList";
 import styled from "styled-components";
 import PostTool from "../../components/PostTool";
+import TechLayout from "../../components/TechLayout";
 
 export default function Category() {
   return (
-    <TechContainer>
-      <Seo title="Philog" />
-      <Sidebar />
+    <TechLayout title="TechBlog">
       <PostContainer>
         <PostTool></PostTool>
         <PostList />
       </PostContainer>
-    </TechContainer>
+    </TechLayout>
   );
 }
-
-const TechContainer = styled.div`
-  margin-top: 100px;
-  display: flex;
-`;
 
 const PostContainer = styled.div`
   display: flex;
