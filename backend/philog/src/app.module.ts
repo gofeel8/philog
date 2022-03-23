@@ -11,7 +11,7 @@ import { BoardModule } from './board/board.module';
 @Module({
   imports: [
     ConfigModule.forRoot({}),
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({ timezone: 'Asia/Seoul' }),
     UserModule,
     AuthModule,
     BoardModule,

@@ -18,7 +18,7 @@ export default function Preview({ seq, title, content, date }: IPreview) {
     <Container onClick={clickHandler}>
       <Title>{title}</Title>
       <Content>{content}</Content>
-      <Date>{date.toLocaleString()}</Date>
+      <Date>{date.toLocaleString("ko-KR")}</Date>
     </Container>
   );
 }
