@@ -1,15 +1,21 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Color } from "../utils/constant";
 
 interface IPreview {
+  seq: number;
   title: string;
   content: string;
   date: Date;
 }
 
-export default function Preview({ title, content, date }: IPreview) {
+export default function Preview({ seq, title, content, date }: IPreview) {
+  const router = useRouter();
+  const clickHandler = () => {
+    router.push(`detail/${seq}`);
+  };
   return (
-    <Container>
+    <Container onClick={clickHandler}>
       <Title>{title}</Title>
       <Content>{content}</Content>
       <Date>{date.toLocaleString()}</Date>

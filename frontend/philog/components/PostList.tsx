@@ -24,6 +24,7 @@ export default function PostList() {
         data.map((item: IPreview) => (
           <Preview
             key={item.seq}
+            seq={item.seq}
             title={item.title}
             content={item.content}
             date={new Date(item.createdAt)}
