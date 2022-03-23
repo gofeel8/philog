@@ -14,4 +14,11 @@ export class BoardService {
     const result = await this.boardRepository.save(CreateBoardDto);
     return result;
   }
+
+  async find(): Promise<Board[]> {
+    return this.boardRepository.find({
+      select: ['seq', 'title', 'content', 'createdAt'],
+      order: { seq: 'DESC' },
+    });
+  }
 }

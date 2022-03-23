@@ -1,19 +1,18 @@
 import styled from "styled-components";
 import { Color } from "../utils/constant";
 
-export default function Preview() {
+interface IPreview {
+  title: string;
+  content: string;
+  date: Date;
+}
+
+export default function Preview({ title, content, date }: IPreview) {
   return (
     <Container>
-      <Title>리액트 학습 정리</Title>
-      <Content>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit minima
-        explicabo maxime porro numquam ratione! Sint nam consectetur, sequi
-        ratione facere ut veritatis ea ipsa vel, veniam dolore nulla totam.
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit minima
-        explicabo maxime porro numquam ratione! Sint nam consectetur, sequi
-        ratione facere ut veritatis ea ipsa vel, veniam dolore nulla totam.
-      </Content>
-      <Date>2022/03/11</Date>
+      <Title>{title}</Title>
+      <Content>{content}</Content>
+      <Date>{date.toLocaleString()}</Date>
     </Container>
   );
 }
