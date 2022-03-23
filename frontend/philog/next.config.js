@@ -11,6 +11,15 @@ const nextConfig = {
       ];
     }
   },
+  async redirects() {
+    return [
+      {
+        source: "/tech",
+        destination: "/tech/all",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
