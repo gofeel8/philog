@@ -4,7 +4,7 @@ import PostList from "../../components/PostList";
 import styled from "styled-components";
 import PostTool from "../../components/PostTool";
 
-export default function Tech() {
+export default function Category() {
   return (
     <TechContainer>
       <Seo title="Philog" />
